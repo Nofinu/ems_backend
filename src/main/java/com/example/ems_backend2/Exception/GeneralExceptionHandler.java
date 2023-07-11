@@ -32,4 +32,9 @@ public class GeneralExceptionHandler {
     protected ResponseEntity<String> handleNotFOundException(NotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmailAlreadyExist.class)
+    protected ResponseEntity<String> handleEmailAlreadyexistExcepTion(EmailAlreadyExist ex){
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.ems_backend2.service;
 
 import com.example.ems_backend2.Entity.Employee;
+import com.example.ems_backend2.Exception.EmailAlreadyExist;
 import com.example.ems_backend2.Exception.NotFoundException;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeCreateDto;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeDtoToEmployee;
@@ -25,8 +26,11 @@ public class EmployeeService {
     @Autowired
     private DtoService dtoService;
 
-    public Employee create(EmployeeCreateDto employeeCreateDto) throws NotFoundException {
-        return employeeRepository.save(employeeConverter.convert(employeeCreateDto));
+    public Employee create(EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
+        if(employeeRepository.findByEmail(employeeCreateDto.getEmail()) == null){
+            return employeeRepository.save(employeeConverter.convert(employeeCreateDto));
+        }
+        throw new EmailAlreadyExist();
     }
 
     public boolean delete(int id) throws NotFoundException {
@@ -45,4 +49,5 @@ public class EmployeeService {
         }
         return employeeReadDtos;
     }
+
 }

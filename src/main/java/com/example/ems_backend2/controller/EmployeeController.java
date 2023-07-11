@@ -1,6 +1,7 @@
 package com.example.ems_backend2.controller;
 
 import com.example.ems_backend2.Entity.Employee;
+import com.example.ems_backend2.Exception.EmailAlreadyExist;
 import com.example.ems_backend2.Exception.NotFoundException;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeCreateDto;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeReadDto;
@@ -21,7 +22,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("")
-    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
         return new ResponseEntity<>(employeeService.create(employeeCreateDto), HttpStatus.OK);
     }
 
@@ -44,7 +45,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
         employeeCreateDto.setId(id);
         if (employeeService.create(employeeCreateDto) != null) {
             return new ResponseEntity<>("Employee Update", HttpStatus.OK);
