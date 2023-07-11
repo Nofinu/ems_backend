@@ -9,6 +9,7 @@ import com.example.ems_backend2.dto.EmployeeDto.EmployeeCreateDto;
 import com.example.ems_backend2.service.DepartementService;
 import com.example.ems_backend2.service.EmployeeService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +26,12 @@ public class DepartementController {
     private DepartementService departementService;
 
     @PostMapping("")
-    public ResponseEntity<Departement> createDepartement(@RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public ResponseEntity<Departement> createDepartement(@RequestBody @Valid DepartementCreateDto departementCreateDto) throws NotFoundException {
         return new ResponseEntity<>(departementService.create(departementCreateDto), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> UpdateDepartement(@PathVariable int id, @RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public ResponseEntity<String> UpdateDepartement(@PathVariable int id, @RequestBody @Valid DepartementCreateDto departementCreateDto) throws NotFoundException {
         departementCreateDto.setId(id);
         if (departementService.create(departementCreateDto) != null) {
             return new ResponseEntity<>("Departement Update", HttpStatus.OK);

@@ -6,6 +6,7 @@ import com.example.ems_backend2.Exception.NotFoundException;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeCreateDto;
 import com.example.ems_backend2.dto.EmployeeDto.EmployeeReadDto;
 import com.example.ems_backend2.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("")
-    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
+    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
         return new ResponseEntity<>(employeeService.create(employeeCreateDto), HttpStatus.OK);
     }
 
@@ -45,7 +46,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
+    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody @Valid EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
         employeeCreateDto.setId(id);
         if (employeeService.update(employeeCreateDto) != null) {
             return new ResponseEntity<>("Employee Update", HttpStatus.OK);
