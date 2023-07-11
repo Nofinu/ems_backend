@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DepartementToDepartementDto {
 
-    public DepartementReadDto converte (Departement departement){
+    public DepartementReadDto converte(Departement departement) {
         DepartementReadDto departementReadDto = new DepartementReadDto();
         departementReadDto.setId(departement.getId());
         departementReadDto.setDepartmentName(departement.getName());

@@ -21,34 +21,34 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("")
-    public ResponseEntity<Employee> createEmployee (@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public ResponseEntity<Employee> createEmployee(@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
         return new ResponseEntity<>(employeeService.create(employeeCreateDto), HttpStatus.OK);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<EmployeeReadDto>> allEmployee (){
-        return new ResponseEntity<>(employeeService.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<EmployeeReadDto>> allEmployee() {
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeReadDto> findByIdEmployee (@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(employeeService.findById(id),HttpStatus.OK);
+    public ResponseEntity<EmployeeReadDto> findByIdEmployee(@PathVariable int id) throws NotFoundException {
+        return new ResponseEntity<>(employeeService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteEmployee (@PathVariable int id) throws NotFoundException {
-        if(employeeService.delete(id)){
-            return new ResponseEntity<>("Employee Delete",HttpStatus.OK);
+    public ResponseEntity<String> deleteEmployee(@PathVariable int id) throws NotFoundException {
+        if (employeeService.delete(id)) {
+            return new ResponseEntity<>("Employee Delete", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error During Deletion",HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Error During Deletion", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateEmployee(@PathVariable int id,@RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException {
         employeeCreateDto.setId(id);
-        if(employeeService.create(employeeCreateDto)!=null){
-            return new ResponseEntity<>("Employee Update",HttpStatus.OK);
+        if (employeeService.create(employeeCreateDto) != null) {
+            return new ResponseEntity<>("Employee Update", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error During Update",HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Error During Update", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -14,14 +14,14 @@ import java.util.Map;
 public class GeneralExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected Map<String, String> handleMethodArgumentNotValid(MethodArgumentNotValidException exception){
+    protected Map<String, String> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
 
         Map<String, String> errors = new HashMap<>();
 
-        exception.getBindingResult().getAllErrors().forEach((error)->{
-                    String fieldName = ((FieldError)error).getField();
+        exception.getBindingResult().getAllErrors().forEach((error) -> {
+                    String fieldName = ((FieldError) error).getField();
                     String message = error.getDefaultMessage();
-                    errors.put(fieldName,message);
+                    errors.put(fieldName, message);
                 }
         );
         return errors;
@@ -29,7 +29,7 @@ public class GeneralExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    protected ResponseEntity<String> handleNotFOundException (NotFoundException ex){
+    protected ResponseEntity<String> handleNotFOundException(NotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -22,32 +22,25 @@ public class EmployeeService {
     private EmployeeDtoToEmployee employeeConverter;
     @Autowired
     private EmployeeToEmployeeDto employeeDtoConverter;
+    @Autowired
+    private DtoService dtoService;
 
-    public Employee create (EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public Employee create(EmployeeCreateDto employeeCreateDto) throws NotFoundException {
         return employeeRepository.save(employeeConverter.convert(employeeCreateDto));
     }
 
-    public boolean delete (int id) throws NotFoundException {
-        Employee employee = findByIdEmployee(id);
-        employeeRepository.delete(employee);
+    public boolean delete(int id) throws NotFoundException {
+        employeeRepository.delete(dtoService.findEmployeetById(id));
         return true;
     }
 
     public EmployeeReadDto findById(int id) throws NotFoundException {
-        return employeeDtoConverter.convert(findByIdEmployee(id));
+        return employeeDtoConverter.convert(dtoService.findEmployeetById(id));
     }
 
-    public Employee findByIdEmployee(int id) throws NotFoundException {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        if(employee.isPresent()){
-            return employee.get();
-        }
-        throw new NotFoundException();
-    }
-
-    public List<EmployeeReadDto> findAll (){
+    public List<EmployeeReadDto> findAll() {
         List<EmployeeReadDto> employeeReadDtos = new ArrayList<>();
-        for (Employee employee:employeeRepository.findAll()) {
+        for (Employee employee : employeeRepository.findAll()) {
             employeeReadDtos.add(employeeDtoConverter.convert(employee));
         }
         return employeeReadDtos;

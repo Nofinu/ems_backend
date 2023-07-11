@@ -16,6 +16,6 @@ public class Employee {
     private String firstname;
     private String lastname;
     private String email;
-    @ManyToOne(cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Departement departement;
 }

@@ -22,34 +22,28 @@ public class DepartementService {
     private DepartementDtoToDepartement departementConverter;
     @Autowired
     private DepartementToDepartementDto departementDtoConverter;
+    @Autowired
+    private DtoService dtoService;
 
-    public Departement create (DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public Departement create(DepartementCreateDto departementCreateDto) throws NotFoundException {
         return departementRepository.save(departementConverter.convert(departementCreateDto));
     }
 
-    public boolean delete (int id) throws NotFoundException {
-        Optional<Departement> departement = departementRepository.findById(id);
-        if(departement.isPresent()){
-            departementRepository.delete(departement.get());
-            return true;
-        }
-        throw new NotFoundException();
+    public boolean delete(int id) throws NotFoundException {
+        departementRepository.delete(dtoService.findDepartById(id));
+        return true;
     }
 
-    public List<DepartementReadDto> getAll (){
+    public List<DepartementReadDto> getAll() {
         List<DepartementReadDto> departementReadDtos = new ArrayList<>();
-        for (Departement d:departementRepository.findAll()) {
+        for (Departement d : departementRepository.findAll()) {
             departementReadDtos.add(departementDtoConverter.converte(d));
         }
         return departementReadDtos;
     }
 
     public DepartementReadDto findById(int id) throws NotFoundException {
-        Optional<Departement> departement = departementRepository.findById(id);
-        if(departement.isPresent()){
-            return departementDtoConverter.converte(departement.get());
-        }
-        throw new NotFoundException();
+        return departementDtoConverter.converte(dtoService.findDepartById(id));
     }
 
 

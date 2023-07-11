@@ -25,22 +25,22 @@ public class DepartementController {
     private DepartementService departementService;
 
     @PostMapping("")
-    public ResponseEntity<Departement> createDepartement (@RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public ResponseEntity<Departement> createDepartement(@RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
         return new ResponseEntity<>(departementService.create(departementCreateDto), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> UpdateDepartement (@PathVariable int id,@RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public ResponseEntity<String> UpdateDepartement(@PathVariable int id, @RequestBody DepartementCreateDto departementCreateDto) throws NotFoundException {
         departementCreateDto.setId(id);
-        if(departementService.create(departementCreateDto)!=null){
-            return new ResponseEntity<>("Departement Update",HttpStatus.OK);
+        if (departementService.create(departementCreateDto) != null) {
+            return new ResponseEntity<>("Departement Update", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error During Updtate",HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Error During Updtate", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @GetMapping("")
-    public ResponseEntity<List<DepartementReadDto>> getAllDepartement (){
-        return new ResponseEntity<>(departementService.getAll(),HttpStatus.OK);
+    public ResponseEntity<List<DepartementReadDto>> getAllDepartement() {
+        return new ResponseEntity<>(departementService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -49,10 +49,10 @@ public class DepartementController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteDepartement (@PathVariable int id) throws NotFoundException {
-        if(departementService.delete(id)){
-            return new ResponseEntity<>("Departement Delete",HttpStatus.OK);
+    public ResponseEntity<String> deleteDepartement(@PathVariable int id) throws NotFoundException {
+        if (departementService.delete(id)) {
+            return new ResponseEntity<>("Departement Delete", HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error during deletion",HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Error during deletion", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

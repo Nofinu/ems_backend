@@ -20,7 +20,7 @@ public class DtoService {
 
     public Departement findDepartById(int id) throws NotFoundException {
         Optional<Departement> departement = departementRepository.findById(id);
-        if(departement.isPresent()){
+        if (departement.isPresent()) {
             return departement.get();
         }
         throw new NotFoundException();
@@ -28,7 +28,7 @@ public class DtoService {
 
     public Employee findEmployeetById(int id) throws NotFoundException {
         Optional<Employee> employee = employeeRepository.findById(id);
-        if(employee.isPresent()){
+        if (employee.isPresent()) {
             return employee.get();
         }
         throw new NotFoundException();

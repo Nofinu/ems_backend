@@ -13,7 +13,7 @@ public class EmployeeDtoToEmployee {
     @Autowired
     private DtoService dtoService;
 
-    public Employee convert (EmployeeCreateDto employeeCreateDto) throws NotFoundException {
+    public Employee convert(EmployeeCreateDto employeeCreateDto) throws NotFoundException {
         Employee employee = employeeCreateDto.getId() != null ? dtoService.findEmployeetById(employeeCreateDto.getId()) : new Employee();
         employee.setEmail(employeeCreateDto.getEmail());
         employee.setFirstname(employeeCreateDto.getFirstName());

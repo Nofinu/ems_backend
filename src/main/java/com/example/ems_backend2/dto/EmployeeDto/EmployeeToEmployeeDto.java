@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeToEmployeeDto {
-    public EmployeeReadDto convert (Employee employee){
+    public EmployeeReadDto convert(Employee employee) {
         EmployeeReadDto employeeReadDto = new EmployeeReadDto();
         employeeReadDto.setId(employee.getId());
         employeeReadDto.setEmail(employee.getEmail());

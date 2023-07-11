@@ -11,7 +11,7 @@ public class DepartementDtoToDepartement {
     @Autowired
     private DtoService dtoService;
 
-    public Departement convert (DepartementCreateDto departementCreateDto) throws NotFoundException {
+    public Departement convert(DepartementCreateDto departementCreateDto) throws NotFoundException {
         Departement departement = departementCreateDto.getId() != null ? dtoService.findDepartById(departementCreateDto.getId()) : new Departement();
         departement.setDescription(departementCreateDto.getDepartmentDescription());
         departement.setName(departementCreateDto.getDepartmentName());
