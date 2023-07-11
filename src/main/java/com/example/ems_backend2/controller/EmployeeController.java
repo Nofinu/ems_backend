@@ -47,7 +47,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateEmployee(@PathVariable int id, @RequestBody EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
         employeeCreateDto.setId(id);
-        if (employeeService.create(employeeCreateDto) != null) {
+        if (employeeService.update(employeeCreateDto) != null) {
             return new ResponseEntity<>("Employee Update", HttpStatus.OK);
         }
         return new ResponseEntity<>("Error During Update", HttpStatus.INTERNAL_SERVER_ERROR);

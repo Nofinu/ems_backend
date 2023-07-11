@@ -33,6 +33,15 @@ public class EmployeeService {
         throw new EmailAlreadyExist();
     }
 
+    public Employee update(EmployeeCreateDto employeeCreateDto) throws NotFoundException, EmailAlreadyExist {
+        String employeeEmail = dtoService.findEmployeetById(employeeCreateDto.getId()).getEmail();
+        Employee employee = employeeConverter.convert(employeeCreateDto);
+        if(employeeRepository.findByEmail(employee.getEmail()) == null || employeeEmail.equals(employee.getEmail())){
+            return employeeRepository.save(employee);
+        }
+        throw new EmailAlreadyExist();
+    }
+
     public boolean delete(int id) throws NotFoundException {
         employeeRepository.delete(dtoService.findEmployeetById(id));
         return true;
